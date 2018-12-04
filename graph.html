@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://code.highcharts.com/stock/highstock.js"></script>
+    <link rel="stylesheet" href="TemprecordOnline.css">
+    <title>Temprecord Online</title>
+</head>
+<body>
+    <main id=main class=gridsystem>
+        <!--section-one-->
+        <section id="section-one">
+            <div>
+                <button class="graphbtn" id="RESET" ><img src="https://www.temprecord.org/wp-content/uploads/2018/11/zoom-02.png">RESET Zoom</button>
+            </div>
+            <div>
+                <button class="graphbtn" id="ZoomInY"><img src="https://www.temprecord.org/wp-content/uploads/2018/11/zoom-01.png">Zoom In Y</button>
+            </div>
+            <div>
+                <button class="graphbtn" id="ZoomOutY"><img src="https://www.temprecord.org/wp-content/uploads/2018/11/zoom-04.png">Zoom Out Y</button>
+            </div>
+            <div>
+                <button class="graphbtn" id="ZoomInX"><img src="https://www.temprecord.org/wp-content/uploads/2018/11/zoom-03.png">Zoom In X</button>
+            </div>
+            <div>
+                <button class="graphbtn" id="ZoomOutX"><img src="https://www.temprecord.org/wp-content/uploads/2018/11/zoom-06.png">Zoom Out X</button>
+            </div>
+            <div>
+                <button class="graphbtn" id="showLimits"><img src="https://www.temprecord.org/wp-content/uploads/2018/11/zoom-07.png">Show Limits</button>
+            </div>
+            <div>
+                <button class="graphbtn" id="showSelectSamples"><img src="https://www.temprecord.org/wp-content/uploads/2018/11/zoom-05.png">Show Select</button>
+            </div>
+            <div class="tickbox">
+                <div>
+                    <input type="checkbox" id="HideGray" class="hideAllTraces"> Hide Gray </intput>
+                </div>
+                <div>
+                    <input type="checkbox" id="ShowLimit" class="showAllLimit"> Show All Limits</intput>
+                </div>
+            </div>
+        </section>
+        <!--section two-->
+        <section id="section-two">
+            <div id="container" oncontextmenu="return showContextMenu(event);"> </div>
+        </section>
+        <!--section three-->
+        <section id="section-three">
+            <div>
+                <input type="file" name="file" multiple id="file" class="input" />
+                <label for="file" class="file" id="open"><img src="icon-01.png">OPEN</label>
+            </div>
+            <div>
+                <button class="logger" id="save"><img src="icon-02.png">SAVE</button>    
+            </div>
+            <div>
+                <button class="logger" id="print"><img src="icon-03.png">PRINT</button>    
+            </div>
+            <div>
+                <button class="logger" id="email"><img src="icon-04.png">EMAIL</button>    
+            </div>
+            <div>
+                <button class="logger" id="export"><img src="icon-05.png">EXPORT</button>    
+            </div>
+        </section>
+        <!--section four-->
+        <section id="section-four">
+            
+        </section>
+
+        <!--save-->
+        <div class="save" id="savemenu">
+            <ul>
+                <li id="json">JSON</li>
+                <li id="pdf">PDF</li>
+                <li id="excel">EXCEL</li>
+            </ul>
+        </div>
+
+        <!--context menu-->
+        <div id="contextMenu" class="context">
+            <ul>
+                <li id="SetStart">Set Start Sample</li>
+                <li id="SetEnd">Set End Sample</li>
+                <li id="ClearStart">Clear Start Sample</li>
+                <li id="ClearEnd">Clear End Sample</li>
+            </ul>
+        </div>
+    </main>
+    
+</body>
+<script type="text/javascript" src="graph.js"></script>
+</html>
