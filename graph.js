@@ -442,6 +442,17 @@ function setSettings(dataRecieve)
 
     axisY1suffix = dataRecieve.device[0].header.mainyaxis;
     Y1suffix = dataRecieve.device[0].header.mainyaxis;
+    document.getElementById("Logger Model").textContent = dataRecieve.device[0].header.loggermodel;
+    document.getElementById("Logger Firmware").textContent = dataRecieve.device[0].header.firmwareversion;
+    document.getElementById("Serial Number").textContent = dataRecieve.device[0].header.serial;
+    document.getElementById("Battery").textContent = dataRecieve.device[0].header.battery;
+    document.getElementById("Memory").textContent = dataRecieve.device[0].header.memory;
+    document.getElementById("Time Zone").textContent = dataRecieve.device[0].header.timezone;
+    document.getElementById("First Sample").textContent = dataRecieve.device[0].header.firstsample;
+    document.getElementById("Last Sample").textContent = dataRecieve.device[0].header.lastsample;
+    document.getElementById("Total Samples").textContent = dataRecieve.device[0].header.totalsamples;
+    document.getElementById("Start Delay").textContent = dataRecieve.device[0].header.startdelay;
+    document.getElementById("Sample Period").textContent = dataRecieve.device[0].header.sampleperiod;
 
     if((axisY1suffix.charAt(2) + axisY1suffix.charAt(3)) == "\xB0C")
         Y1suffix = "\xB0C";
@@ -1275,6 +1286,7 @@ for (var i = 0, f; f = files[i]; i++) {
   // Closure to capture the file information.
   reader.onload = (function(theFile) {
     return function(e) {
+        document.getElementById('section-four').style.display = 'grid' ;
            setTheme(1);
            jsonfile = JSON.parse(e.target.result);
            setSettings(jsonfile);
@@ -1302,8 +1314,7 @@ for (var i = 0, f; f = files[i]; i++) {
 
         //graph itself
         chart: {
-            height: 750 ,
-            width: 1850,
+            height: '40%',
             animation: false,
             type: 'line',
             plotBorderWidth: 1,
