@@ -12,15 +12,15 @@ p { margin: 0; padding: 1em 0;}
 
 img { display: block; width: 100%; height: auto;}
 
-#section-one { background: #E6E6E6; padding: 0em 1em; }
-.graphbtn{ background:none; border-style: none; color:#fff; padding: 1em; border-right: 3px solid #fff; cursor: pointer;}
+#section-one { background: #E6E6E6;}
+.graphbtn{ background:none; border-style: none; color:#fff; cursor: pointer;}
 .graphbtn :hover{transform: translateY(2px);}
 
 #section-two { background: #d0d0d0;}
 .context {width: 150px;height: auto; position: absolute;background-color: 'black';display: none;}
 .context ul {list-style: none;padding: 0px 0px 0px 0px;}
 .context ul li{padding: 10px 5px 10px 5px;background: #fff;border-left: 4px solid transparent;cursor: pointer;}
-.context ul li:hover{background: #eee;border-left: 4px solid #666;}
+.context ul li:hover{background: #eee;border-left: 4px solid #666;} 
 
 #section-three { background: #E6E6E6; padding: 0em 1em; font-size: 15px;} 
 .logger { background: none; border: none; cursor: pointer;}
@@ -28,20 +28,35 @@ img { display: block; width: 100%; height: auto;}
 .input { width: 0.1px; height: 0.1px; opacity: 0; overflow: hidden; position: absolute; z-index: 1; }
 .input + label { display: inline-block;  cursor: pointer; }
 .input + label :hover { transform: translateY(2px);}
-.save {width: 150px;height: auto; position: relative; display: none;}
-.save ul {list-style:none; padding:0px 0px 0px 0px;}
-.save ul li{padding: 20px 5px 20px 5px;background:#e6e6e6;border-left: 4px solid transparent;cursor: pointer;}
-.save ul li:hover{background: #eee;border-left: 4px solid #666;}
 
-#section-four { color: #fff; background: none; display:none;}
-.bg{ position: absolute; background: #000000; opacity: 0.7; height: 48em; width:25em; z-index: 0; margin: 50px 50px 50px 50px;}
-.summary { position: absolute; z-index: 3; margin: 30px 30px 30px 50px;}
-.summary h1 {background: #039; margin: 50px -50px 0px -15px; padding: 5px 0px 5px 0px;}
-.summary ul {list-style:none;}
+.save { width: 150px;height: auto; position: absolute; margin: -215px 0px 0px 215px; display: none;}
+.save ul { list-style:none; padding:0px 0px 0px 0px;}
+.save ul li{ padding: 20px 5px 20px 5px;background:#e6e6e6;border-left: 4px solid transparent;cursor: pointer;}
+.save ul li:hover{ background: #eee;border-left: 4px solid #666;}
+
+.export { width: 150px;height: auto; position: absolute; margin: -215px 0px 0px 755px; display: none;}
+.export ul { list-style:none; padding:0px 0px 0px 0px;}
+.export ul li{ padding: 20px 5px 20px 5px;background:#e6e6e6;border-left: 4px solid transparent;cursor: pointer;}
+.export ul li:hover{ background: #eee;border-left: 4px solid #666;}
+
+#section-four { color: #fff; background: none; display: none;}
+.bg { position: absolute;  background: #000000; opacity: 0.7; height: 80%; width:21%; z-index: 0; margin: 30px 0px 0px 0px; right:0px;}
+.summary { position: absolute; z-index: 3; margin: 30px 0px 0px 70px;}
+.summary h1 { background: #039; margin: 30px -50px 0px -15px; padding: 5px 0px 5px 0px;}
+.summary ul { list-style:none;}
 .summary ul li { margin: -5px 10px 0px 0px; padding: 20px 0px 20px 0px; text-align: left; font-weight: bold;}
-.fromjson { position: absolute; z-index: 3; margin: 125px 0px 0px 220px;}
-.fromjson ul {list-style: none}
-.fromjson ul li { padding: 20px 0px 15px 0px; text-align: left;}
+#summarylist { position: absolute; z-index: 3; margin: 105px 0px 0px 240px;}
+#summarylist ul { list-style: none}
+#summarylist ul li { padding: 20px 0px 15px 0px; text-align: left;}
+.statistics { position: absolute; z-index: 3; margin: 30px 0px 0px 70px; display: none;}
+.statistics h1 { background: #039; margin: 30px -50px 0px -15px; padding: 5px 0px 5px 0px;}
+.statistics ul { list-style:none; }
+.statistics ul li { margin: 0px 0px 0px 0px; padding: 0px 0px 10px 0px; text-align: left; font-weight: bold;}
+#statisticslist { display: none; position: absolute; z-index: 3; margin: 110px 0px 0px 260px;}
+#statisticslist ul { list-style: none}
+#statisticslist ul li { padding: 0px 0px 10px 0px; text-align: left;}
+#minimize { cursor: pointer; position: absolute; width: 2em; height:4em; background:#000; color: #fff; opacity: 0.7; border-radius: 10px 0px 0px 10px; text-align: center; font-weight: bold;  top:40%; right:21%;}
+#maximize { cursor: pointer; position: absolute; display:none; width: 2em; height:4em; background:#000; color: #fff; opacity: 0.7; border-radius: 10px 0px 0px 10px; text-align: center; font-weight: bold;  top:40%; right:0px;}
 
 @media(min-width: 700px)
 {
@@ -68,7 +83,7 @@ img { display: block; width: 100%; height: auto;}
         display: grid;
         grid-column: 1/3;
         grid-row: 1/2;
-        grid-template-columns: repeat(9, minmax(auto, 10em));
+        grid-template-columns: repeat(9, minmax(auto, 8em));
         align-items: center;
     }
 
@@ -104,4 +119,19 @@ img { display: block; width: 100%; height: auto;}
         grid-row: 1/4;
     }
 
+    #maximize
+    {
+        grid-column: 2/3;
+        grid-row: 1/4;
+    }
+
+}
+
+@media(min-width: 500px)
+{
+    .grid 
+    {
+        display: none;
+        grid-template-columns: 1fr repeat(2, minmax(auto,25em)) 1fr;
+    }
 }

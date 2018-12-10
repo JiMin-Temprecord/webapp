@@ -9,7 +9,7 @@
     <title>Temprecord Online</title>
 </head>
 <body>
-    <main id=main class=gridsystem>
+    <main id=graphone class=gridsystem>
         <!--section-one-->
         <section id="section-one">
             <div>
@@ -64,11 +64,28 @@
             <div>
                 <button class="logger" id="export"><img src="icon-05.png">EXPORT</button>    
             </div>
+             <!--save-->
+            <div class="save" id="savemenu">
+                <ul>
+                    <li id="savejson">JSON</li>
+                    <li id="savepdf">PDF</li>
+                    <li id="saveexcel">EXCEL</li>
+                </ul>
+            </div>
+            <!--export-->
+            <div class="export" id="exportmenu">
+                <ul>
+                    <li id="exportjson">JSON</li>
+                    <li id="exportpdf">PDF</li>
+                    <li id="exportexcel">EXCEL</li>
+                </ul>
+            </div>
         </section>
         <!--section four-->
         <section id="section-four">
-            <div class="bg"></div>
-            <div class="summary">
+            <div class="bg" id="bg"></div>
+            <div id="minimize"><P> > </P></div>
+            <div class="summary" id="summary">
                 <h1>SUMMARY</h1>
                 <ul>
                     <li>Logger Model : </li>
@@ -85,33 +102,86 @@
                     <li>Sample Period : </li>
                 </ul>
             </div>
-            <div class ="fromjson">
+            <div id="summarylist">
                 <ul>
-                        <li id="Logger Model"></li>
-                        <li id="Logger Firmware"></li>
-                        <li id="Serial Number"></li>
-                        <li id="Battery"></li>
-                        <li id="Memory"></li>
-                        <br>
-                        <li id="Time Zone"></li>
-                        <li id="First Sample"></li>
-                        <li id="Last Sample"></li>
-                        <li id="Total Samples"></li>
-                        <li id="Start Delay"></li>
-                        <li id="Sample Period"></li>
-                    </ul>
+                    <li id="Logger Model"></li>
+                    <li id="Logger Firmware"></li>
+                    <li id="Serial Number"></li>
+                    <li id="Battery"></li>
+                    <li id="Memory"></li>
+                    <br>
+                    <li id="Time Zone"></li>
+                    <li id="First Sample"></li>
+                    <li id="Last Sample"></li>
+                    <li id="Total Samples"></li>
+                    <li id="Start Delay"></li>
+                    <li id="Sample Period"></li>
+                </ul>
+            </div>
+            <div class="statistics" id="statistics">
+                <h1>STATISTICS</h1>
+                <ul>
+                    <li>First Sample : </li>
+                    <li>Last Sample : </li>
+                    <li>Total Trip Sample : </li>
+                    <li>Total Logged Time : </li>
+                    <br>
+                    <li>CH 1</li>
+                    <li>Mean : </li>
+                    <li>MKT : </li>
+                    <li>Maximum : </li>
+                    <li>Minimum : </li>
+                    <br>
+                    <li>Upper Limit : </li>
+                    <li>Time Above : </li>
+                    <li>Sample Above : </li>
+                    <li>Percentage Above : </li>
+                    <br>
+                    <li>Lower Limit : </li>
+                    <li>Time Below : </li>
+                    <li>Sample Below : </li>
+                    <li>Percentage Below : </li>
+                    <br>
+                    <li>Within Limit : </li>
+                    <li>Time Within : </li>
+                    <li>Sample Within : </li>
+                    <li>Percentage Within : </li>
+                </ul>
+            </div>
+            <div id="statisticslist">
+                <ul>
+                    <li id="firstsample">a</li>
+                    <li id="lastsample">b</li>
+                    <li id="totaltripsample">c</li>
+                    <li id="totalloggedtime">d</li>
+                    <br>
+                    <li id="ch1">a</li>
+                    <li id="mean">b</li>
+                    <li id="mkt">c</li>
+                    <li id="maximum">d</li>
+                    <li id="minimum">e</li>
+                    <br>
+                    <li id="upperlimit">a</li>
+                    <li id="timeabove">b</li>
+                    <li id="sampleabove">c</li>
+                    <li id="percentageabove">d</li>
+                    <br>
+                    <li id="lowerlimit">a</li>
+                    <li id="timebelow">b</li>
+                    <li id="samplebelow">c</li>
+                    <li id="percentagebelow">d</li>
+                    <br>
+                    <li id="withinlimit">a</li>
+                    <li id="timewithin">b</li>
+                    <li id="samplewithin">c</li>
+                    <li id="percentagewithin">d</li>
+                </ul>
             </div>
         </section>
 
-        <!--save-->
-        <div class="save" id="savemenu">
-            <ul>
-                <li id="json">JSON</li>
-                <li id="pdf">PDF</li>
-                <li id="excel">EXCEL</li>
-            </ul>
-        </div>
-
+        <!--Maximum-->
+        <div id="maximize"><P> < </P></div>
+        
         <!--context menu-->
         <div id="contextMenu" class="context">
             <ul>

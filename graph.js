@@ -66,6 +66,7 @@ var WithinLimitArea;
 
 var boolsave = false;
 var boolexport = false;
+var boolsummary = true;
 
 
 //---------------------------------------------------------------------------------//
@@ -132,7 +133,7 @@ function enableButtons()
     document.getElementById("ZoomInY").addEventListener("mouseup", function()
     {
         if(chart.yAxis[0].min + zoomyInterval < chart.yAxis[0].max - zoomyInterval)
-            chart.yAxis[0].setExtremes(chart.yAxis[0].min + zoomyInterval,chart.yAxis[0].max - zoomyInterval, false, false)
+            chart.yAxis[0].setExtremes(chart.yAxis[0].min + zoomyInterval,chart.yAxis[0].max - zoomyInterval, true, false)
 
         if(chart.yAxis[1].min + zoomy2Interval < chart.yAxis[1].max - zoomy2Interval)
             chart.yAxis[1].setExtremes(chart.yAxis[1].min + zoomy2Interval,chart.yAxis[1].max - zoomy2Interval, true, false)
@@ -141,7 +142,7 @@ function enableButtons()
     document.getElementById("ZoomOutY").addEventListener("mouseup", function()
     {
         if(chart.yAxis[0].min > minY - zoomyInterval)
-            chart.yAxis[0].setExtremes(chart.yAxis[0].min - zoomyInterval, chart.yAxis[0].max + zoomyInterval, false, false)
+            chart.yAxis[0].setExtremes(chart.yAxis[0].min - zoomyInterval, chart.yAxis[0].max + zoomyInterval, true, false)
 
         if(chart.yAxis[1].min > minY2 - zoomy2Interval)
             chart.yAxis[1].setExtremes(chart.yAxis[1].min - zoomy2Interval,chart.yAxis[1].max + zoomy2Interval, true, false)
@@ -268,13 +269,39 @@ function toggle()
 
     if(boolexport === true)
     {
-        savemenu.style.display = 'none';
+        exportmenu.style.display = 'none';
         boolexport = false;
     }
 }
 
+
 //---------------------------------------------------------------------------------//
-document.getElementById("json").addEventListener("mousedown" ,function()
+document.getElementById("summary").addEventListener("mousedown" ,function()
+{
+    document.getElementById("summary").style.display = 'none';
+    document.getElementById("summarylist").style.display = 'none';
+    document.getElementById("statistics").style.display = 'grid';
+    document.getElementById("statisticslist").style.display = 'grid';
+    document.getElementById("bg").style.height = '55em';
+    boolsummary = false;
+})
+//---------------------------------------------------------------------------------//
+
+//---------------------------------------------------------------------------------//
+document.getElementById("statistics").addEventListener("mousedown" ,function()
+{
+    document.getElementById("summary").style.display = 'grid';
+    document.getElementById("summarylist").style.display = 'grid';
+    document.getElementById("statistics").style.display = 'none';
+    document.getElementById("statisticslist").style.display = 'none';
+    document.getElementById("bg").style.height = '46em';
+    boolsummary = true;
+
+})
+//---------------------------------------------------------------------------------//
+
+//---------------------------------------------------------------------------------//
+document.getElementById("savejson").addEventListener("mousedown" ,function()
 {
     if(boolsave === true)
     {
@@ -287,8 +314,6 @@ document.getElementById("json").addEventListener("mousedown" ,function()
 document.getElementById("save").addEventListener("mouseup",function()
 {
     savemenu.style.display = 'block';
-    savemenu.style.left = event.clientX.left + 'px';
-    savemenu.style.top = event.clientX.top + 'px';
     boolsave = true;
 });
 //---------------------------------------------------------------------------------//}
@@ -296,9 +321,7 @@ document.getElementById("save").addEventListener("mouseup",function()
 //---------------------------------------------------------------------------------//
 document.getElementById("export").addEventListener("mouseup",function()
 {
-    savemenu.style.display = 'block';
-    savemenu.style.left =event.clientX.left + 'px';
-    savemenu.style.top = event.clientX + 'px';
+    exportmenu.style.display = 'block';
     boolexport = true;
 });
 //---------------------------------------------------------------------------------//}
@@ -315,6 +338,22 @@ document.getElementById("email").addEventListener("mouseup", function()
     window.open('mailto:');
 })
 
+//---------------------------------------------------------------------------------//
+
+//---------------------------------------------------------------------------------//
+document.getElementById("minimize").addEventListener("click", function()
+{
+    document.getElementById("section-four").style.display = 'none';
+    document.getElementById("maximize").style.display = 'grid';
+})
+//---------------------------------------------------------------------------------//
+
+//---------------------------------------------------------------------------------//
+document.getElementById("maximize").addEventListener("click", function()
+{
+    document.getElementById("maximize").style.display = 'none';
+    document.getElementById("section-four").style.display ='grid';
+})
 //---------------------------------------------------------------------------------//
 
 //---------------------------------------------------------------------------------//
@@ -442,6 +481,7 @@ function setSettings(dataRecieve)
 
     axisY1suffix = dataRecieve.device[0].header.mainyaxis;
     Y1suffix = dataRecieve.device[0].header.mainyaxis;
+    
     document.getElementById("Logger Model").textContent = dataRecieve.device[0].header.loggermodel;
     document.getElementById("Logger Firmware").textContent = dataRecieve.device[0].header.firmwareversion;
     document.getElementById("Serial Number").textContent = dataRecieve.device[0].header.serial;
@@ -791,7 +831,7 @@ function setLimits ()
     if ((minY < TLL) || (maxY > TUL) || (minY2 < HLL) || (maxY2 > HUL))
     {
         var image = document.getElementById("image");
-        image.src = "images/redWarning.png"
+        //image.src = "redWarning.png"
     }
 
     if(jsonfile.device[0].zoom != undefined)
@@ -973,7 +1013,7 @@ function setPlotband2 (dataRecieve)
 }
 //---------------------------------------------------------------------------------//
 
-
+//Function called everytime a legend item is clicked
 //---------------------------------------------------------------------------------//
 function clickstate(line){
     if(line.index != tag)
@@ -1046,7 +1086,7 @@ function showLimit(line)
     }
     else
     {
-        if(visible == 1)
+        if(visible == 2)
         {
             if(line.index == 0)
                 setPlotband1(jsonfile);
@@ -1146,8 +1186,8 @@ function deselect(index)
          chart.yAxis[1].removePlotBand('CH1');
     }
 
-    if(visible == 1)
-    {
+    if(visible == 2)
+    { 
         if(index == 0)
             setPlotband2(jsonfile);
         if(index == 1)
@@ -1281,6 +1321,7 @@ function createJSON ()
 function handleFileSelect(evt) {
 var files = evt.target.files; // FileList object
 // Loop through the FileList and populate the 'outputTable' with the data
+
 for (var i = 0, f; f = files[i]; i++) {
   var reader = new FileReader();
   // Closure to capture the file information.
@@ -1288,7 +1329,11 @@ for (var i = 0, f; f = files[i]; i++) {
     return function(e) {
         document.getElementById('section-four').style.display = 'grid' ;
            setTheme(1);
-           jsonfile = JSON.parse(e.target.result);
+           try {
+                jsonfile = JSON.parse(e.target.result);
+            } catch (e) {
+                return false;
+            }
            setSettings(jsonfile);
            var data = getData(jsonfile);
             /*

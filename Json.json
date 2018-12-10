@@ -35,7 +35,7 @@
 "StartDelay" : "10",
 "Sampling" : "20",
 "LoggingSelection" : "1",
-"UserData" : "**123456**",
+"UserData" : "**123456**",
 "NVSSAFLAGSUserData" : "1",
 "NVTIMEWHENSTARTED" : "",
 "NVTIMEZONEWHENSTARTED" : "0",
