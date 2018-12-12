@@ -1328,21 +1328,20 @@ for (var i = 0, f; f = files[i]; i++) {
   reader.onload = (function(theFile) {
     return function(e) {
         document.getElementById('section-four').style.display = 'grid' ;
-           setTheme(1);
-           try {
-                jsonfile = JSON.parse(e.target.result);
-            } catch (e) {
-                return false;
-            }
-           setSettings(jsonfile);
-           var data = getData(jsonfile);
-            /*
-            Initializes the graph itself. 
-            Graph Library: HIGHCHARTS
-            function details can be found on website above.
-            */
-            chart = Highcharts.stockChart('container', {
-
+        setTheme(1);
+        try {
+            jsonfile = JSON.parse(e.target.result);
+        } catch (e) {
+            return false;
+        }
+        setSettings(jsonfile);
+        var data = getData(jsonfile);
+        /*
+        Initializes the graph itself. 
+        Graph Library: HIGHCHARTS
+        function details can be found on website above.
+        */
+        chart = Highcharts.stockChart('graph', {
         //pre-set ranges for zoom 
         //disabled to allowed custom zoom. 
         //pre-set ranges for zoom 
@@ -1359,7 +1358,7 @@ for (var i = 0, f; f = files[i]; i++) {
 
         //graph itself
         chart: {
-            height: '40%',
+            height: '45%',
             animation: false,
             type: 'line',
             plotBorderWidth: 1,
@@ -1500,10 +1499,10 @@ for (var i = 0, f; f = files[i]; i++) {
 
         plotOptions: plotOptions
     });
-            setLimits();
-            setPlotband1(jsonfile);
-            enableButtons();
-            };
+        setLimits();
+        setPlotband1(jsonfile);
+        enableButtons();
+        };
       })(f);
     reader.readAsText(f);
   }

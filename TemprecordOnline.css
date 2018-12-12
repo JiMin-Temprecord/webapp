@@ -20,7 +20,8 @@ img { display: block; width: 100%; height: auto;}
 .context {width: 150px;height: auto; position: absolute;background-color: 'black';display: none;}
 .context ul {list-style: none;padding: 0px 0px 0px 0px;}
 .context ul li{padding: 10px 5px 10px 5px;background: #fff;border-left: 4px solid transparent;cursor: pointer;}
-.context ul li:hover{background: #eee;border-left: 4px solid #666;} 
+.context ul li:hover{background: #eee;border-left: 4px solid #666;}
+.tab{ position: absolute; left: 0px; height: 3em; width: 12em; } 
 
 #section-three { background: #E6E6E6; padding: 0em 1em; font-size: 15px;} 
 .logger { background: none; border: none; cursor: pointer;}
@@ -40,7 +41,7 @@ img { display: block; width: 100%; height: auto;}
 .export ul li:hover{ background: #eee;border-left: 4px solid #666;}
 
 #section-four { color: #fff; background: none; display: none;}
-.bg { position: absolute;  background: #000000; opacity: 0.7; height: 80%; width:21%; z-index: 0; margin: 30px 0px 0px 0px; right:0px;}
+.bg { position: absolute;  background: #000000; opacity: 0.7; height: 46em; width:21%; z-index: 0; margin: 30px 0px 0px 0px; right:0px;}
 .summary { position: absolute; z-index: 3; margin: 30px 0px 0px 70px;}
 .summary h1 { background: #039; margin: 30px -50px 0px -15px; padding: 5px 0px 5px 0px;}
 .summary ul { list-style:none;}
@@ -63,7 +64,7 @@ img { display: block; width: 100%; height: auto;}
     .grid 
     {
         display: grid;
-        grid-template-columns: 1fr repeat(2, minmax(auto,25em)) 1fr;
+        grid-template-columns: 1fr 2fr 1fr;
     }
 
     .content-wrap
@@ -75,7 +76,7 @@ img { display: block; width: 100%; height: auto;}
     {
         display: grid;
         grid-template-columns:3fr 1fr;
-        grid-template-rows: 1fr 6fr 1fr;
+        grid-template-rows: 1fr 5fr 1fr;
     }
 
     #section-one
@@ -102,6 +103,7 @@ img { display: block; width: 100%; height: auto;}
         grid-column: 1/3;
         grid-row: 2/3;
         align-content: center;
+        grid-template-rows: 12fr 1fr;
     }
 
     #section-three
@@ -125,13 +127,4 @@ img { display: block; width: 100%; height: auto;}
         grid-row: 1/4;
     }
 
-}
-
-@media(min-width: 500px)
-{
-    .grid 
-    {
-        display: none;
-        grid-template-columns: 1fr repeat(2, minmax(auto,25em)) 1fr;
-    }
 }
