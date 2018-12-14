@@ -1,4 +1,4 @@
-var value;//total set of details
+//var value;//total set of details
 var hour = "hh"; // hh for 12hr && HH for 24hr
 var timesuffix = "TT"; // TT for AM/PM &&
 var axisY1suffix = ''; //channel one unit
@@ -68,6 +68,8 @@ var boolsave = false;
 var boolexport = false;
 var boolsummary = true;
 
+var graphjson = [] ;
+var graphcount = 0;
 
 //---------------------------------------------------------------------------------//
 /*
@@ -273,7 +275,6 @@ function toggle()
         boolexport = false;
     }
 }
-
 
 //---------------------------------------------------------------------------------//
 document.getElementById("summary").addEventListener("mousedown" ,function()
@@ -500,7 +501,7 @@ function setSettings(dataRecieve)
     plotOptions = {
                     series: {
                         stickyTracking: true,
-                        showInNavigator: true,
+                        //showInNavigator: true,
                         allowPointSelect: true,
                         cursor: 'pointer',
                         marker: {
@@ -642,7 +643,7 @@ function setSettings(dataRecieve)
 function getData(dataRecieve)
 {
     var datetime = [];
-    value = [];
+    var value = [];
     var valuesize;
     var channelsize; 
     var dataPoint = []; //set of details, unique for each trace
@@ -651,7 +652,7 @@ function getData(dataRecieve)
     channelsize = Object.keys(dataRecieve.device[0].channel).length;
 
     //need devicesize and a way to deal with multiple files
-    for(var h = 0; h < channelsize; h++)
+    for(var h=0; h < channelsize; h++)
     {
         if(dataRecieve.device[0].channel[h].units == "")
             tag = h;
@@ -1328,100 +1329,220 @@ for (var i = 0, f; f = files[i]; i++) {
   reader.onload = (function(theFile) {
     return function(e) {
         document.getElementById('section-four').style.display = 'grid' ;
+        document.getElementById('tab').style.display = 'grid';
         setTheme(1);
         try {
             jsonfile = JSON.parse(e.target.result);
         } catch (e) {
             return false;
         }
-        setSettings(jsonfile);
-        var data = getData(jsonfile);
-        /*
-        Initializes the graph itself. 
-        Graph Library: HIGHCHARTS
-        function details can be found on website above.
-        */
-        chart = Highcharts.stockChart('graph', {
-        //pre-set ranges for zoom 
-        //disabled to allowed custom zoom. 
-        //pre-set ranges for zoom 
-        //disabled to allowed custom zoom. 
-        rangeSelector: {
-            enabled: false
-        },
 
-        //preview bar at the bottom of the graph
-        navigator: {
-            height: 40,
-            enabled: navigatorenable
-        },
+        graphjson[graphcount] = jsonfile;
+        
+        if (graphcount == 0)
+        {
+            document.getElementById("0").textContent = jsonfile.device[0].header.serial;
 
-        //graph itself
-        chart: {
-            height: '45%',
-            animation: false,
-            type: 'line',
-            plotBorderWidth: 1,
-            plotBorderColor: graphBorder,
-            zoomType: 'xy',
-            panKey: 'shift',
-             backgroundColor: graphBackground,
-             style: {
-                textTransform: 'uppercase',
-                fontFamily: 'oswald',
-                fontSize: '12px'
+            setSettings(jsonfile);
+            var data = getData(jsonfile);
+            /*
+            Initializes the graph itself. 
+            Graph Library: HIGHCHARTS
+            function details can be found on website above.
+            */
+            chart = Highcharts.stockChart('graph', {
+
+            //pre-set ranges for zoom 
+            //disabled to allowed custom zoom. 
+            //pre-set ranges for zoom 
+            //disabled to allowed custom zoom. 
+            rangeSelector: {
+                enabled: false
             },
-            resetZoomButton: {
-                theme: {
-                    display: 'none'
+
+            //preview bar at the bottom of the graph
+            navigator: {
+                height: 40,
+                enabled: navigatorenable
+            },
+
+            //graph itself
+            chart: {
+                height: '35%',
+                animation: false,
+                type: 'line',
+                plotBorderWidth: 1,
+                plotBorderColor: graphBorder,
+                zoomType: 'xy',
+                panKey: 'shift',
+                backgroundColor: graphBackground,
+                style: {
+                    textTransform: 'uppercase',
+                    fontFamily: 'oswald',
+                    fontSize: '12px'
+                },
+                resetZoomButton: {
+                    theme: {
+                        display: 'none'
+                    }
                 }
-            }
-        },
-
-        tooltip: {
-            split: true,
-            crosshairs: true,
-            valueDecimals: 2
-        },
-
-        legend: {
-            enabled: true,
-            //floating: true,
-            align: 'center',
-            backgroundColor: 'none',
-            layout: 'horizontal',
-            verticalAlign: 'top',
-            borderWidth: 0
-        },
-
-
-        xAxis: [{
-            type: 'datetime',
-            dateTimeLabelFormats: {
-                second: '%m/%d/%Y<br> %H:%M:%S',
-                minute: '%m/%d/%Y<br> %H:%M',
-                hour: '%m/%d/%Y/<br> %H:%M',
-                day: '%m/%d/%Y<br>',
-                week: '%m/%d/%Y<br> ',
-                month: '%m/%Y ',
-                year: '%Y '
             },
+
+            tooltip: {
+                split: true,
+                crosshairs: true,
+                valueDecimals: 2
+            },
+
+            legend: {
+                enabled: true,
+                //floating: true,
+                align: 'center',
+                backgroundColor: 'none',
+                layout: 'horizontal',
+                verticalAlign: 'top',
+                borderWidth: 0
+            },
+
+
+            xAxis: [{
+                type: 'datetime',
+                dateTimeLabelFormats: {
+                    second: '%m/%d/%Y<br> %H:%M:%S',
+                    minute: '%m/%d/%Y<br> %H:%M',
+                    hour: '%m/%d/%Y/<br> %H:%M',
+                    day: '%m/%d/%Y<br>',
+                    week: '%m/%d/%Y<br> ',
+                    month: '%m/%Y ',
+                    year: '%Y '
+                },
+                min: startdate,
+                max: stopdate,
+                labels: {
+                    style: {
+                        fontSize: font,
+                        color: fontcolor
+                    },
+                    rotation: -30
+                },
+                crosshair: true,
+                //gridLineDashStyle: 'dash',
+                gridLineWidth: gridwidth,
+                gridLineColor: grid,
+                tickColor: graphColor,
+                tickLength: 8,
+                tickWidth: 2,
+                plotBands:
+                [{
+                    from: startdate,
+                    to: stopdate,
+                    color: graphColor
+                }]
+            }],
+
+            yAxis:
+            [{
+                visible: yVisible,
+                minRange: 1,
+                min: null,
+                max: null,
+                startOnTick: false,
+                endOnTick: false,
+                showLastLabel: true,
+                tickColor: line1,
+                tickLength: 8,
+                tickWidth: 2,
+                //gridLineDashStyle: 'dash',
+                gridLineWidth: gridwidth,
+                gridLineColor: grid,
+                /*scrollbar: {
+                    enabled: true,
+                    showFull: false
+                },*/
+                labels: {
+                    format: '{value}' + Y1suffix,
+                    style: {
+                        fontSize: font,
+                        color: line1
+                    }
+                },
+
+                crosshair: true,
+                opposite: false,
+                resize: {
+                        enabled: true
+                    }
+            },
+            {
+                visible: y2Visible,
+                minRange: 1,
+                min: null,
+                max: null,
+                startOnTick: false,
+                endOnTick: false,
+                showLastLabel: true,
+                tickColor: '#d1d1d1',
+                tickLength: 8,
+                tickWidth: 2,
+                //gridLineDashStyle: 'dash',
+                gridLineWidth: gridwidth,
+                gridLineColor: grid,
+                /* scrollbar: {
+                    enabled: true,
+                    showFull: false
+                },*/
+                labels: {
+                    format: '{value}' + axisY2suffix,
+                    style: {
+                        fontSize: font,
+                        color: '#d1d1d1'
+                    }
+                },
+                opposite: true,
+                resize: {
+                        enabled: true
+                }
+
+            }],
+
+            series: data,
+
+            plotOptions: plotOptions
+            });
+            setLimits();
+            setPlotband1(jsonfile);
+            enableButtons();
+            graphcount++;
+        }
+        else 
+            addTab(graphcount);
+        };
+      })(f);
+    reader.readAsText(f);
+  }
+}
+
+function addTab (graphcount)
+{
+    var button = document.createElement("BUTTON");
+    var text = document.createTextNode(graphjson[graphcount].device[0].header.serial);
+    button.classList.add("serialnumber");
+    button.id = graphcount;
+    button.append(text);
+    document.getElementById("tab").appendChild(button);
+}
+
+document.getElementById("tab").addEventListener("mouseup", function()
+{
+    jsonfile = graphjson[event.path[0].id];
+    setSettings(jsonfile);
+    var graphdata = getData(jsonfile);
+
+    chart.update({
+        
+        xAxis: [{
             min: startdate,
             max: stopdate,
-            labels: {
-                style: {
-                    fontSize: font,
-                    color: fontcolor
-                },
-                rotation: -30
-            },
-            crosshair: true,
-            //gridLineDashStyle: 'dash',
-            gridLineWidth: gridwidth,
-            gridLineColor: grid,
-            tickColor: graphColor,
-            tickLength: 8,
-            tickWidth: 2,
             plotBands:
             [{
                 from: startdate,
@@ -1445,7 +1566,7 @@ for (var i = 0, f; f = files[i]; i++) {
             //gridLineDashStyle: 'dash',
             gridLineWidth: gridwidth,
             gridLineColor: grid,
-             /*scrollbar: {
+            /*scrollbar: {
                 enabled: true,
                 showFull: false
             },*/
@@ -1461,7 +1582,7 @@ for (var i = 0, f; f = files[i]; i++) {
             opposite: false,
             resize: {
                     enabled: true
-                  }
+                }
         },
         {
             visible: y2Visible,
@@ -1474,13 +1595,8 @@ for (var i = 0, f; f = files[i]; i++) {
             tickColor: '#d1d1d1',
             tickLength: 8,
             tickWidth: 2,
-            //gridLineDashStyle: 'dash',
             gridLineWidth: gridwidth,
             gridLineColor: grid,
-            /* scrollbar: {
-                enabled: true,
-                showFull: false
-            },*/
             labels: {
                 format: '{value}' + axisY2suffix,
                 style: {
@@ -1489,23 +1605,19 @@ for (var i = 0, f; f = files[i]; i++) {
                 }
             },
             opposite: true,
-             resize: {
+            resize: {
                     enabled: true
             }
 
         }],
 
-        series: getData(jsonfile),
+        series: graphdata,
 
         plotOptions: plotOptions
+        
     });
-        setLimits();
-        setPlotband1(jsonfile);
-        enableButtons();
-        };
-      })(f);
-    reader.readAsText(f);
-  }
-}
+    setLimits();
+    setPlotband1(jsonfile);
+})
 
 document.getElementById('file').addEventListener('change', handleFileSelect, false);

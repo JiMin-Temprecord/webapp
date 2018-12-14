@@ -21,7 +21,9 @@ img { display: block; width: 100%; height: auto;}
 .context ul {list-style: none;padding: 0px 0px 0px 0px;}
 .context ul li{padding: 10px 5px 10px 5px;background: #fff;border-left: 4px solid transparent;cursor: pointer;}
 .context ul li:hover{background: #eee;border-left: 4px solid #666;}
-.tab{ position: absolute; left: 0px; height: 3em; width: 12em; } 
+#tab{ display: none; left: 0px;} 
+.serialnumber {height:100%; width: 100%; font-weight: bold; font-size: 1em; border-style: none; background: #e6e6e6;}
+.serialnumber:focus {background: #fff;}
 
 #section-three { background: #E6E6E6; padding: 0em 1em; font-size: 15px;} 
 .logger { background: none; border: none; cursor: pointer;}
@@ -102,8 +104,13 @@ img { display: block; width: 100%; height: auto;}
         display: grid;
         grid-column: 1/3;
         grid-row: 2/3;
-        align-content: center;
         grid-template-rows: 12fr 1fr;
+    }
+
+    .tab
+    {
+        display: grid;
+        grid-template-columns: repeat(10, minmax(10em,15em));
     }
 
     #section-three
